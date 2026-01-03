@@ -11,6 +11,6 @@ async def start(message: Message) -> None:
         "Привет! Я бот «Погода / Курс валют».\n\n"
         "Команды:\n"
         "/weather <город> — погода по городу\n"
-        "/rate <BASE> <TARGET> — курс валют (позже добавим)\n\n"
+        "/rate <BASE> <TARGET> — курс валют\n\n"
         "Пример: /weather Riga"
     )
