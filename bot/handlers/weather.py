@@ -1,7 +1,7 @@
+import httpx
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
-import httpx
 
 from bot.services.weather_client import WeatherClient
 

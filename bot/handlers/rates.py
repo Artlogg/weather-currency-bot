@@ -1,9 +1,9 @@
 import logging
 
+import httpx
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
-import httpx
 
 from bot.services.rates_client import RatesClient
 
