@@ -12,6 +12,7 @@ main_menu = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True,
 )
+
 weather_menu = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Сегодня"), KeyboardButton(text="Завтра")],
@@ -20,6 +21,7 @@ weather_menu = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True,
 )
+
 rates_menu = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="EUR/USD"), KeyboardButton(text="USD/JPY")],  # популярные пары
@@ -29,6 +31,7 @@ rates_menu = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True,
 )
+
 general_menu = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="🔄 Обновить")],
