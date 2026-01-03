@@ -3,9 +3,13 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 from bot.keyboards.main import general_menu
+
 from bot.keyboards.main import main_menu
+
 from bot.keyboards.main import rates_menu
+
 from bot.keyboards.main import weather_menu
+
 
 router = Router()
 
