@@ -2,12 +2,11 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-from bot.keyboards.main import main_menu
-from bot.keyboards.main import rates_menu
-from bot.keyboards.main import weather_menu
-from bot.keyboards.main import general_menu
+from bot.keyboards.main import general_menu, main_menu, rates_menu, weather_menu
+
 
 router = Router()
+
 
 @router.message(CommandStart())
 async def start(message: Message) -> None:
@@ -18,6 +17,7 @@ async def start(message: Message) -> None:
         "/rate <BASE> <TARGET> — курс валют\n\n"
         "Пример: /weather Riga", reply_markup=main_menu,
     )
+
 
 @router.message()
 async def handle_main_buttons(message: Message):
