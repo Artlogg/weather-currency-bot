@@ -4,7 +4,6 @@ from aiogram.types import Message
 
 from bot.keyboards.main import general_menu, main_menu, rates_menu, weather_menu
 
-
 router = Router()
 
 
