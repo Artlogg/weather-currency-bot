@@ -3,10 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 from bot.keyboards.main import main_menu
-
-
 router = Router()
-
 
 @router.message(CommandStart())
 async def start(message: Message) -> None:
