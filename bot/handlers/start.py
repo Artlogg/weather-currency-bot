@@ -2,7 +2,8 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-from bot.keyboards.main import general_menu, main_menu, rates_menu, weather_menu
+
+from bot.keyboards.main import main_menu, general_menu, rates_menu, weather_menu
 
 router = Router()
 
@@ -14,7 +15,8 @@ async def start(message: Message) -> None:
         "Команды:\n"
         "/weather <город> — погода по городу\n"
         "/rate <BASE> <TARGET> — курс валют\n\n"
-        "Пример: /weather Riga", reply_markup=main_menu,
+        "Пример: /weather Riga",
+        reply_markup=main_menu,
     )
 
 
