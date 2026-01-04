@@ -33,5 +33,3 @@ async def handle_main_buttons(message: Message):
         await message.answer("Главное меню:", reply_markup=main_menu)
     elif text == "❌ Убрать клавиатуру":
         await message.answer("Клавиатура убрана", reply_markup=None)
-    else:
-        await message.answer("Выберите действие из меню!")
