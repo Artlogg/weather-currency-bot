@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-from bot.keyboards.main import main_menu, general_menu, weather_menu, rates_menu
+from bot.keyboards.main import general_menu, main_menu, weather_menu, rates_menu
 
 router = Router()
 
