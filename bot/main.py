@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.memory import MemoryStorage
 
 from bot.config import settings
 from bot.handlers.rates import router as rates_router
@@ -13,7 +14,7 @@ async def main() -> None:
     logging.basicConfig(level=logging.INFO)
 
     bot = Bot(token=settings.bot_token)
-    dp = Dispatcher()
+    dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_router(start_router)
     dp.include_router(weather_router)
