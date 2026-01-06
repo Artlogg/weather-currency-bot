@@ -2,10 +2,16 @@ import httpx
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
+from aiogram.fsm.state import State, StatesGroup
 
 from bot.services.weather_client import WeatherClient
 
 router = Router()
+
+
+
+class WeatherStates(StatesGroup):
+    waiting_for_city = State()
 
 
 @router.message(Command("weather"))
