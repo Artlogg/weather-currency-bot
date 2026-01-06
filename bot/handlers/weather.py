@@ -41,7 +41,8 @@ async def process_city(
 
     await message.answer(
         f"Погода {label} в {result.city}:\n"
-        f"🌡 Температура: {result.temperature_c:.1f}°C\n"
+        f"🌡 Минимальная температура: {result.temperature_c_min:.1f}°C\n"
+        f"🌡 Максимальная температура: {result.temperature_c_max:.1f}°C\n"
         f"💨 Ветер: {result.wind_speed_ms:.1f} м/с"
     )
 
