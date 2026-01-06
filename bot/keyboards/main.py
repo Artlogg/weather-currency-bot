@@ -13,7 +13,7 @@ main_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
 )
 
-weather_menu = ReplyKeyboardMarkup(
+weather_menu = InlineKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Сегодня"), KeyboardButton(text="Завтра")],
         [KeyboardButton(text="Ветер")],
@@ -22,7 +22,7 @@ weather_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
 )
 
-rates_menu = ReplyKeyboardMarkup(
+rates_menu = InlineKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="USD/RUB"), KeyboardButton(text="CNY/RUB")],
         [KeyboardButton(text="Любимая пара")],
@@ -32,7 +32,7 @@ rates_menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
 )
 
-general_menu = ReplyKeyboardMarkup(
+general_menu = InlineKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="🔄 Обновить")],
         [KeyboardButton(text="❌ Убрать клавиатуру")],
