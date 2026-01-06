@@ -18,7 +18,7 @@ class DailyWeatherResult:
     date: str
     temperature_c_min: float
     temperature_c_max: float
-    wind_speed_max: float
+    wind_speed: float
 
 
 class WeatherClient:
@@ -116,9 +116,9 @@ class WeatherClient:
                 DailyWeatherResult(
                     city=resolved_name,
                     date=dates[i],
-                    temperature_min=float(temp_min[i]),
-                    temperature_max=float(temp_max[i]),
-                    wind_speed_max=float(wind_max[i]),
+                    temperature_c_min=float(temp_min[i]),
+                    temperature_c_max=float(temp_max[i]),
+                    wind_speed=float(wind_max[i]),
                 )
             )
 
