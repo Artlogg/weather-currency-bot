@@ -58,7 +58,8 @@ async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
     
     if data in ("Monday", "Tuesday", "Wednesday", "Thursday", 
                 "Friday", "Saturday", "Sunday"):
-        city = user_last_city.get(user_id)
+            data = await state.get_data()
+            city = data.get("city")
         if not city:
             await callback.message.answer(
                 "Ты ещё не вводил город. Введите город текстом."
@@ -91,4 +92,5 @@ async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
                 f"🌡 Максимальная температура: {day.temperature_c_max:.1f}°C\n"
                 f"💨 Ветер: {day.wind_speed_max:.1f} м/с"
             )
+    await state.clear()
     await callback.answer()
