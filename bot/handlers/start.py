@@ -56,8 +56,7 @@ async def handle_callbacks(
             "Выберите день недели:",
             reply_markup=week_menu
         )
-        
-    if data in ("weather_today", "weather_tomorrow"):
+    elif data in ("weather_today", "weather_tomorrow"):
         await state.set_state(WeatherStates.waiting_for_city)
         await state.update_data(period=data)
 
