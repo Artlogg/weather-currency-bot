@@ -16,9 +16,10 @@ async def main() -> None:
     bot = Bot(token=settings.bot_token)
     dp = Dispatcher(storage=MemoryStorage())
 
-    dp.include_router(start_router)
+    
     dp.include_router(weather_router)
     dp.include_router(rates_router)
+    dp.include_router(start_router)
 
     logging.info("Bot started")
 
