@@ -23,7 +23,7 @@ async def start(message: Message) -> None:
     )
 
 
-@router.message()
+@router.message(lambda m: m.text in {"🌤 Погода", "💱 Курсы валют", "⚙️ Общее"})
 async def handle_main_buttons(message: Message):
     text = message.text
 
