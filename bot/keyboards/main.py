@@ -41,6 +41,15 @@ weather_menu = InlineKeyboardMarkup(
     ]
 )
 
+last_city_menu = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text="⭐ Последний город", callback_data="weather_last"
+            ),
+        ],
+    ]
+
 rates_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
