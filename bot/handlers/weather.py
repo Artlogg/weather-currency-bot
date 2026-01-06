@@ -53,10 +53,13 @@ async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
     data = callback.data
     user_id = callback.from_user.id
     
-    elif data in ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"):
+    if data in ("Monday", "Tuesday", "Wednesday", "Thursday", 
+                "Friday", "Saturday", "Sunday"):
         city = user_last_city.get(user_id)
         if not city:
-            await callback.message.answer("Ты ещё не вводил город. Введите город текстом.")
+            await callback.message.answer(
+                "Ты ещё не вводил город. Введите город текстом."
+            )
             await callback.answer()
             return
 
