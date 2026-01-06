@@ -50,7 +50,13 @@ async def handle_callbacks(
     state: FSMContext,
 ):
     data = callback.data
-    
+
+    if data == "weather_week":
+        await callback.message.answer(
+            "Выберите день недели:",
+            reply_markup=week_menu
+        )
+        
     if data in ("weather_today", "weather_tomorrow"):
         await state.set_state(WeatherStates.waiting_for_city)
         await state.update_data(period=data)
