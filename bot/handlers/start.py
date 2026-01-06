@@ -49,7 +49,7 @@ async def handle_callbacks(
         await state.update_data(period=data)  # today / tomorrow
 
         await callback.message.answer(
-            "Введите город (например: Riga)"
+            "Введите город (например: Riga)", reply_markup=last_city_menu
         )
 
     await callback.answer()
