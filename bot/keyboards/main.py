@@ -21,14 +21,22 @@ main_menu = ReplyKeyboardMarkup(
 weather_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text="Сегодня", callback_data="weather_today"),
-            InlineKeyboardButton(text="Завтра", callback_data="weather_tomorrow"),
+            InlineKeyboardButton(
+                text="Сегодня", callback_data="weather_today"
+            ),
+            InlineKeyboardButton(
+                text="Завтра", callback_data="weather_tomorrow"
+            ),
         ],
         [
-            InlineKeyboardButton(text="Ветер", callback_data="weather_wind"),
+            InlineKeyboardButton(
+                text="Ветер", callback_data="weather_wind"
+            ),
         ],
         [
-            InlineKeyboardButton(text="⭐ Последний город", callback_data="weather_last"),
+            InlineKeyboardButton(
+                text="⭐ Последний город", callback_data="weather_last"
+            ),
         ],
     ]
 )
