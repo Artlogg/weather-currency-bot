@@ -41,7 +41,6 @@ async def handle_callbacks(
     state: FSMContext,
 ):
     data = callback.data
-    user_id = callback.from_user.id
 
     if data in ("weather_today", "weather_tomorrow"):
         await state.set_state(WeatherStates.waiting_for_city)
