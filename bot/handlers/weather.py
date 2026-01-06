@@ -51,12 +51,6 @@ async def process_city(
 async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
     data = callback.data
     user_id = callback.from_user.id
-
-    if data == "weather_week":
-        await callback.message.answer(
-            "Выберите день недели:",
-            reply_markup=week_menu
-        )
     
     elif data in ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"):
         city = user_last_city.get(user_id)
