@@ -1,11 +1,13 @@
 from aiogram import Router
 from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.types import CallbackQuery, Message
 
 from bot.keyboards.main import general_menu, main_menu, rates_menu, weather_menu
 
 router = Router()
 
+user_last_city: dict[int, str] = {}
+user_last_rate: dict[int, tuple[str, str]] = {}
 
 @router.message(CommandStart())
 async def start(message: Message) -> None:
@@ -29,7 +31,50 @@ async def handle_main_buttons(message: Message):
         await message.answer("Выберите пару:", reply_markup=rates_menu)
     elif text == "⚙️ Общее":
         await message.answer("Настройки:", reply_markup=general_menu)
-    elif text == "⬅️ Назад":
-        await message.answer("Главное меню:", reply_markup=main_menu)
-    elif text == "❌ Убрать клавиатуру":
-        await message.answer("Клавиатура убрана", reply_markup=None)
+
+
+@router.callback_query()
+async def handle_callbacks(callback: CallbackQuery):
+    data = callback.data
+    user_id = callback.from_user.id
+
+    if data.startswith("weather_"):
+        if data == "weather_last":
+            city = user_last_city.get(user_id)
+            if city:
+                await callback.message.answer(
+                    f"Показываю погоду для {city}"
+                )
+            else:
+                await callback.message.answer(
+                    "Ты ещё не вводил город"
+                )
+        else:
+            await callback.message.answer(
+                "Введи город текстом (например: Riga)"
+            )
+
+    elif data.startswith("rate_"):
+        if data == "rate_usd_rub":
+            user_last_rate[user_id] = ("USD", "RUB")
+            await callback.message.answer("USD → RUB")
+        elif data == "rate_cny_rub":
+            user_last_rate[user_id] = ("CNY", "RUB")
+            await callback.message.answer("CNY → RUB")
+        elif data == "rate_favorite":
+            pair = user_last_rate.get(user_id)
+            if pair:
+                await callback.message.answer(
+                    f"Любимая пара: {pair[0]} → {pair[1]}"
+                )
+            else:
+                await callback.message.answer(
+                    "Любимая пара не сохранена"
+                )
+
+    elif data == "general_hide":
+        await callback.message.answer(
+            "Клавиатура убрана",
+            reply_markup=None,
+        )
+    await callback.answer()
