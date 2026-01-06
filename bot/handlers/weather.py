@@ -48,7 +48,10 @@ async def process_city(
 
     await state.clear()
 
-@router.callback_query()
+@router.callback_query(F.data.in_({
+    "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Saturday", "Sunday",
+}))
 async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
     data = callback.data
     user_id = callback.from_user.id
