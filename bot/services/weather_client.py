@@ -28,7 +28,8 @@ class WeatherClient:
     async def get_current_weather(self, city: str) -> WeatherResult:
         geo_resp = await self._http.get(
             "https://geocoding-api.open-meteo.com/v1/search",
-            params={"name": city, "count": 1, "language": "ru", "format": "json"},
+            params={"name": city, "count": 1,
+                    "language": "ru", "format": "json"},
             timeout=10,
         )
         geo_resp.raise_for_status()
