@@ -49,7 +49,7 @@ class WeatherClient:
             params={
                 "latitude": lat,
                 "longitude": lon,
-                "current": ("temperature_2m_min,"
+                "daily": ("temperature_2m_min,"
                             "temperature_2m_max,"
                             "wind_speed_10m,"
                 ),
