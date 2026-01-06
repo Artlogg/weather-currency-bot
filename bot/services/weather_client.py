@@ -40,7 +40,10 @@ class WeatherClient:
             params={
                 "latitude": lat,
                 "longitude": lon,
-                "current": "temperature_2m,wind_speed_10m",
+                "current": ("temperature_2m_min,"
+                            "temperature_2m_max,"
+                            "wind_speed_10m,"
+                ),
                 "timezone": "auto",
             },
             timeout=10,
@@ -51,6 +54,62 @@ class WeatherClient:
 
         return WeatherResult(
             city=resolved_name,
-            temperature_c=float(current["temperature_2m"]),
+            temperature_c_min=float(current["temperature_2m_min"]),
+            temperature_c_max=float(current["temperature_2m_max"]),
             wind_speed_ms=float(current["wind_speed_10m"]),
         )
+    async def get_week_forecast(self, city: str) -> list[DailyWeatherResult]:
+        geo_resp = await self._http.get(
+            "https://geocoding-api.open-meteo.com/v1/search",
+            params={"name": city, "count": 1, "language": "ru", "format": "json"},
+            timeout=10,
+        )
+        geo_resp.raise_for_status()
+        geo_data = geo_resp.json()
+
+        results = geo_data.get("results") or []
+        if not results:
+            raise ValueError("CITY_NOT_FOUND")
+
+        place = results[0]
+        lat = place["latitude"]
+        lon = place["longitude"]
+
+        # 2) Weekly forecast
+        w_resp = await self._http.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={
+                "latitude": lat,
+                "longitude": lon,
+                "daily": (
+                    "temperature_2m_min,"
+                    "temperature_2m_max,"
+                    "wind_speed_10m_max"
+                ),
+                "forecast_days": 7,
+                "timezone": "auto",
+            },
+            timeout=10,
+        )
+        w_resp.raise_for_status()
+        w_data = w_resp.json()
+        daily = w_data.get("daily") or {}
+
+        dates = daily.get("time", [])
+        temp_min = daily.get("temperature_2m_min", [])
+        temp_max = daily.get("temperature_2m_max", [])
+        wind_max = daily.get("wind_speed_10m_max", [])
+
+        forecast: list[DailyWeatherResult] = []
+
+        for i in range(len(dates)):
+            forecast.append(
+                DailyWeatherResult(
+                    date=dates[i],
+                    temperature_min=float(temp_min[i]),
+                    temperature_max=float(temp_max[i]),
+                    wind_speed_max=float(wind_max[i]),
+                )
+            )
+
+        return forecast
