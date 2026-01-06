@@ -5,6 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from bot.services.weather_client import WeatherClient
+from bot.states.weather import WeatherStates
 
 router = Router()
 
