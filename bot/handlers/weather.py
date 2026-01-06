@@ -84,7 +84,8 @@ async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
             day = week_forecast[index]
             await callback.message.answer(
                 f"Погода в {city} на {data} ({day.date}):\n"
-                f"🌡 Мин: {day.temperature_min:.1f}°C, Макс: {day.temperature_max:.1f}°C\n"
+                f"🌡 Минимальная температура: {day.temperature_c_min:.1f}°C\n"
+                f"🌡 Максимальная температура: {day.temperature_c_max:.1f}°C\n"
                 f"💨 Ветер: {day.wind_speed_max:.1f} м/с"
             )
     await callback.answer()
