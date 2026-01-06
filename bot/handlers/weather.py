@@ -92,5 +92,4 @@ async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
                 f"🌡 Максимальная температура: {day.temperature_c_max:.1f}°C\n"
                 f"💨 Ветер: {day.wind_speed_max:.1f} м/с"
             )
-    await state.clear()
     await callback.answer()
