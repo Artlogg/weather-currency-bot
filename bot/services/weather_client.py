@@ -16,8 +16,8 @@ class WeatherResult:
 class DailyWeatherResult:
     city: str
     date: str
-    temperature_min: float
-    temperature_max: float
+    temperature_c_min: float
+    temperature_c_max: float
     wind_speed_max: float
 
 
@@ -26,7 +26,6 @@ class WeatherClient:
         self._http = http
 
     async def get_current_weather(self, city: str) -> WeatherResult:
-        # 1) Geocoding: city -> lat/lon
         geo_resp = await self._http.get(
             "https://geocoding-api.open-meteo.com/v1/search",
             params={"name": city, "count": 1, "language": "ru", "format": "json"},
