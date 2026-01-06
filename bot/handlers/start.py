@@ -33,6 +33,8 @@ async def handle_main_buttons(message: Message):
         await message.answer("Выберите пару:", reply_markup=rates_menu)
     elif text == "⚙️ Общее":
         await message.answer("Настройки:", reply_markup=general_menu)
+    else:
+        return
 
 
 @router.callback_query()
