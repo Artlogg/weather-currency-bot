@@ -46,6 +46,45 @@ last_city_menu = InlineKeyboardMarkup(
     ]
 )
 
+week_menu = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text="Пн", callback_data="Monday"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Вт", callback_data="Tuesday"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Ср", callback_data="Wednesday"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Чт", callback_data="Thursday"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Пт", callback_data="Friday"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Сб", callback_data="Saturday"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Вс", callback_data="Sunday"
+            ),
+        ],
+    ]
+)
 rates_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
