@@ -1,7 +1,7 @@
 import httpx
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message
+from aiogram.types import CallbackQuery, Message
 
 from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
