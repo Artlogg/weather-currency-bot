@@ -52,28 +52,3 @@ async def handle_callbacks(
         )
 
     await callback.answer()
-
-    elif data.startswith("rate_"):
-        if data == "rate_usd_rub":
-            user_last_rate[user_id] = ("USD", "RUB")
-            await callback.message.answer("USD → RUB")
-        elif data == "rate_cny_rub":
-            user_last_rate[user_id] = ("CNY", "RUB")
-            await callback.message.answer("CNY → RUB")
-        elif data == "rate_favorite":
-            pair = user_last_rate.get(user_id)
-            if pair:
-                await callback.message.answer(
-                    f"Любимая пара: {pair[0]} → {pair[1]}"
-                )
-            else:
-                await callback.message.answer(
-                    "Любимая пара не сохранена"
-                )
-
-    elif data == "general_hide":
-        await callback.message.answer(
-            "Клавиатура убрана",
-            reply_markup=None,
-        )
-    await callback.answer()
