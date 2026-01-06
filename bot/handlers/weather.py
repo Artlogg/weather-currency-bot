@@ -46,3 +46,47 @@ async def process_city(
     )
 
     await state.clear()
+
+@router.callback_query()
+async def handle_callbacks(callback: CallbackQuery, state: FSMContext):
+    data = callback.data
+    user_id = callback.from_user.id
+
+    if data == "weather_week":
+        await callback.message.answer(
+            "Выберите день недели:",
+            reply_markup=week_menu
+        )
+    
+    elif data in ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"):
+        city = user_last_city.get(user_id)
+        if not city:
+            await callback.message.answer("Ты ещё не вводил город. Введите город текстом.")
+            await callback.answer()
+            return
+
+        async with httpx.AsyncClient() as http:
+            client = WeatherClient(http)
+            week_forecast = await client.get_week_forecast(city)
+
+        days_map = {
+            "Monday": 0,
+            "Tuesday": 1,
+            "Wednesday": 2,
+            "Thursday": 3,
+            "Friday": 4,
+            "Saturday": 5,
+            "Sunday": 6,
+        }
+        index = days_map[data]
+
+        if index >= len(week_forecast):
+            await callback.message.answer("Прогноз на этот день недоступен.")
+        else:
+            day = week_forecast[index]
+            await callback.message.answer(
+                f"Погода в {city} на {data} ({day.date}):\n"
+                f"🌡 Мин: {day.temperature_min:.1f}°C, Макс: {day.temperature_max:.1f}°C\n"
+                f"💨 Ветер: {day.wind_speed_max:.1f} м/с"
+            )
+    await callback.answer()
