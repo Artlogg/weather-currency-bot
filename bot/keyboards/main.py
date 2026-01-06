@@ -49,6 +49,7 @@ last_city_menu = InlineKeyboardMarkup(
             ),
         ],
     ]
+)
 
 rates_menu = InlineKeyboardMarkup(
     inline_keyboard=[
