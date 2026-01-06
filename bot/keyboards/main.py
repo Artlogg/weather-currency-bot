@@ -30,7 +30,7 @@ weather_menu = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton(
-                text="Ветер", callback_data="weather_wind"
+                text="Неделя", callback_data="weather_week"
             ),
         ],
         [
