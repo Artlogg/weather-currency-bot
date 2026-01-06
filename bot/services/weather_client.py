@@ -8,8 +8,17 @@ import httpx
 @dataclass(frozen=True)
 class WeatherResult:
     city: str
-    temperature_c: float
+    temperature_c_min: float
+    temperature_c_max: float
     wind_speed_ms: float
+
+@dataclass(frozen=True)
+class DailyWeatherResult:
+    city: str
+    date: str
+    temperature_min: float
+    temperature_max: float
+    wind_speed_max: float
 
 
 class WeatherClient:
@@ -74,7 +83,7 @@ class WeatherClient:
         place = results[0]
         lat = place["latitude"]
         lon = place["longitude"]
-
+        resolved_name = place.get("name", city)
         # 2) Weekly forecast
         w_resp = await self._http.get(
             "https://api.open-meteo.com/v1/forecast",
@@ -105,6 +114,7 @@ class WeatherClient:
         for i in range(len(dates)):
             forecast.append(
                 DailyWeatherResult(
+                    city=resolved_name,
                     date=dates[i],
                     temperature_min=float(temp_min[i]),
                     temperature_max=float(temp_max[i]),
