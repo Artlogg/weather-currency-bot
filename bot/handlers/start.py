@@ -1,4 +1,4 @@
-from aiogram import Router
+from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
@@ -44,7 +44,11 @@ async def handle_main_buttons(message: Message):
         return
 
 
-@router.callback_query()
+@router.callback_query(F.data.in_({
+    "weather_today",
+    "weather_tomorrow",
+    "weather_week",
+}))
 async def handle_callbacks(
     callback: CallbackQuery,
     state: FSMContext,
