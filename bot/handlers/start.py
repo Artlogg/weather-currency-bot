@@ -1,8 +1,10 @@
 from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import CallbackQuery, Message
+from aiogram.fsm.context import FSMContext
 
 from bot.keyboards.main import general_menu, main_menu, rates_menu, weather_menu
+from bot.states.weather import WeatherStates
 
 router = Router()
 
@@ -34,25 +36,22 @@ async def handle_main_buttons(message: Message):
 
 
 @router.callback_query()
-async def handle_callbacks(callback: CallbackQuery):
+async def handle_callbacks(
+    callback: CallbackQuery,
+    state: FSMContext,
+):
     data = callback.data
     user_id = callback.from_user.id
 
-    if data.startswith("weather_"):
-        if data == "weather_last":
-            city = user_last_city.get(user_id)
-            if city:
-                await callback.message.answer(
-                    f"Показываю погоду для {city}"
-                )
-            else:
-                await callback.message.answer(
-                    "Ты ещё не вводил город"
-                )
-        else:
-            await callback.message.answer(
-                "Введи город текстом (например: Riga)"
-            )
+    if data in ("weather_today", "weather_tomorrow"):
+        await state.set_state(WeatherStates.waiting_for_city)
+        await state.update_data(period=data)  # today / tomorrow
+
+        await callback.message.answer(
+            "Введите город (например: Riga)"
+        )
+
+    await callback.answer()
 
     elif data.startswith("rate_"):
         if data == "rate_usd_rub":
