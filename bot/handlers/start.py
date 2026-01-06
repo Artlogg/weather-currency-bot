@@ -9,6 +9,7 @@ from bot.keyboards.main import (
     main_menu,
     rates_menu,
     weather_menu,
+    week_menu,
 )
 from bot.states.weather import WeatherStates
 
