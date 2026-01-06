@@ -1,8 +1,8 @@
 import httpx
 from aiogram import Router
 from aiogram.filters import Command
-from aiogram.types import Message
 from aiogram.fsm.state import State, StatesGroup
+from aiogram.types import Message
 
 from bot.services.weather_client import WeatherClient
 
