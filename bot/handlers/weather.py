@@ -49,7 +49,7 @@ async def process_city(message: Message, state: FSMContext):
     await state.clear()
 
     today = forecast[0]
-    weekday = RU_WEEKDAYS[
+    weekday = WEEKDAYS[
         datetime.fromisoformat(today.date).weekday()
     ]
 
