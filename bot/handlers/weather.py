@@ -1,8 +1,9 @@
 from datetime import datetime
+
 import httpx
-from aiogram import Router, F
+from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import CallbackQuery, Message
 
 from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
