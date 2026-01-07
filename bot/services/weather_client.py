@@ -59,7 +59,7 @@ class WeatherClient:
         )
         w_resp.raise_for_status()
         w_data = w_resp.json()
-        current = w_data.get("current") or {}
+        daily = w_data.get("daily") or {}
 
         return WeatherResult(
             city=resolved_name,
