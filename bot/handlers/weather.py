@@ -45,7 +45,6 @@ async def process_city(
         f"🌡 Максимальная температура: {result.temperature_c_max:.1f}°C\n"
         f"💨 Ветер: {result.wind_speed_ms:.1f} м/с"
     )
-    await state.clear()
 
 
 @router.callback_query(F.data.in_({
