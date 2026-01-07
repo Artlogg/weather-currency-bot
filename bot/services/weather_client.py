@@ -53,7 +53,7 @@ class WeatherClient:
                 "longitude": lon,
                 "current": (
                     "temperature_2m_min", 
-                    "temperature_2m_min", 
+                    "temperature_2m_max", 
                     "wind_speed_10m",
                 ),
                 "timezone": "auto",
