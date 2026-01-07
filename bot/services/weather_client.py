@@ -51,7 +51,11 @@ class WeatherClient:
             params={
                 "latitude": lat,
                 "longitude": lon,
-                "current": "temperature_2m,wind_speed_10m",
+                "current": (
+                    "temperature_2m_min", 
+                    "temperature_2m_min", 
+                    "wind_speed_10m",
+                ),
                 "timezone": "auto",
             },
             timeout=10,
