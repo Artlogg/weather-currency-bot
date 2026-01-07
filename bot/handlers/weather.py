@@ -34,8 +34,7 @@ async def process_city(
                 "Сервис погоды временно недоступен."
             )
             return
-
-    user_last_city[message.from_user.id] = city
+            
     await state.update_data(city=city)
     
     label = "сегодня" if period == "weather_today" else "завтра"
