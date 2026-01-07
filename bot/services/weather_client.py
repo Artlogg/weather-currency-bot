@@ -63,8 +63,8 @@ class WeatherClient:
 
         return WeatherResult(
             city=resolved_name,
-            temperature_c_min=float(current["temperature_2m_min"]),
-            temperature_c_max=float(current["temperature_2m_max"]),
+            temperature_c_min=daily.get("temperature_2m_min", []),
+            temperature_c_max=daily.get("temperature_2m_max", []),
             wind_speed_ms=float(current["wind_speed_10m"]),
         )
     async def get_week_forecast(self, city: str) -> list[DailyWeatherResult]:
