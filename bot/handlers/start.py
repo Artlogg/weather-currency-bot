@@ -31,11 +31,11 @@ async def start(message: Message) -> None:
 
 
 @router.message(lambda m: m.text in {"💱 Курсы валют", "⚙️ Общее"})
-async def handle_main_buttons(message: Message):
+async def handle_main_buttons(message: Message, state: FSMContext):
     await state.clear()
     text = message.text
 
-    elif text == "💱 Курсы валют":
+    if text == "💱 Курсы валют":
         await message.answer("Выберите пару:", reply_markup=rates_menu)
     elif text == "⚙️ Общее":
         await message.answer("Настройки:", reply_markup=general_menu)
