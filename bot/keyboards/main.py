@@ -133,3 +133,25 @@ general_menu = InlineKeyboardMarkup(
         ],
     ]
 )
+
+CURRENCIES = ["USD", "EUR", "GBP", "PLN", "CNY"]
+
+def currency_keyboard(exclude: str | None = None) -> InlineKeyboardMarkup:
+    items = [c for c in CURRENCIES if c != exclude]
+
+    rows: list[list[InlineKeyboardButton]] = []
+    row: list[InlineKeyboardButton] = []
+    for code in items:
+        row.append(InlineKeyboardButton(text=code, callback_data=f"cur:{code}"))
+        if len(row) == 3:
+            rows.append(row)
+            row = []
+    if row:
+        rows.append(row)
+
+    rows.append([InlineKeyboardButton(text="✍️ Ввести вручную", callback_data="cur:manual")])
+    rows.append([InlineKeyboardButton(text="❌ Отмена", callback_data="cur:cancel")])
+
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
