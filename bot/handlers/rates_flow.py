@@ -11,7 +11,7 @@ router = Router()
 
 
 # Старт сценария по кнопке "💱 Курс валют"
-@router.message(F.text == "💱 Курс валют")
+@router.message(lambda m: m.text == "💱 Курс валют")
 async def rate_start(message: Message, state: FSMContext) -> None:
     await state.clear()
     await state.set_state(RateFlow.choosing_base)
