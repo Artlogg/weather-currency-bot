@@ -131,7 +131,8 @@ async def manual_target(message: Message, state: FSMContext):
         try:
             result = await client.get_rate(base, target)
         except ValueError:
-            await message.answer(f"❌ Валютная пара {base} → {target} не поддерживается.")
+            await message.answer(
+                f"❌ Валютная пара {base} → {target} не поддерживается.")
             await state.clear()
             return
         except httpx.HTTPError:
@@ -139,5 +140,6 @@ async def manual_target(message: Message, state: FSMContext):
             await state.clear()
             return
 
-    await message.answer(f"💱 Курс валют:\n{result.base} → {result.target}: {result.rate:.4f}")
+    await message.answer(
+        f"💱 Курс валют:\n{result.base} → {result.target}: {result.rate:.4f}")
     await state.clear()
