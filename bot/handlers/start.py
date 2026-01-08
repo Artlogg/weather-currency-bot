@@ -4,10 +4,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
 from bot.keyboards.main import (
-    general_menu,
     last_city_menu,
     main_menu,
-    rates_menu,
     week_menu,
 )
 from bot.states.weather import WeatherStates
