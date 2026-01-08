@@ -30,7 +30,7 @@ async def start(message: Message) -> None:
     )
 
 
-@router.message(lambda m: m.text in {"🌤 Погода", "💱 Курсы валют", "⚙️ Общее"})
+@router.message(lambda m: m.text in {"💱 Курсы валют", "⚙️ Общее"})
 async def handle_main_buttons(message: Message):
     text = message.text
 
@@ -42,6 +42,13 @@ async def handle_main_buttons(message: Message):
         await message.answer("Настройки:", reply_markup=general_menu)
     else:
         return
+@router.message(lambda m: m.text == "🌤 Погода")
+async def weather_start(message: Message, state: FSMContext):
+    await state.set_state(WeatherStates.waiting_for_city)
+    await message.answer(
+        "Введите город (например: Riga):",
+        reply_markup=last_city_menu,
+    )
 
 
 @router.callback_query(F.data.in_({
