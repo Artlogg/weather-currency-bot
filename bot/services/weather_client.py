@@ -44,7 +44,8 @@ class WeatherClient:
                 "daily": (
                     "temperature_2m_min,"
                     "temperature_2m_max,"
-                    "wind_speed_10m_max"
+                    "wind_speed_10m_max,"
+                    "weathercode"
                 ),
                 "forecast_days": 7,
                 "timezone": "auto",
@@ -61,6 +62,7 @@ class WeatherClient:
                 date=daily["time"][i],
                 temperature_min=daily["temperature_2m_min"][i],
                 temperature_max=daily["temperature_2m_max"][i],
+                weather_codes=daily["weathercode"][i],
                 wind_speed_max=daily["wind_speed_10m_max"][i],
             )
             for i in range(len(daily["time"]))
