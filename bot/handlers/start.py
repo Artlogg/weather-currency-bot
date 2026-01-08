@@ -8,7 +8,6 @@ from bot.keyboards.main import (
     last_city_menu,
     main_menu,
     rates_menu,
-    weather_menu,
     week_menu,
 )
 from bot.states.weather import WeatherStates
