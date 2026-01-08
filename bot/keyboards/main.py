@@ -32,7 +32,9 @@ weather_menu = InlineKeyboardMarkup(
             InlineKeyboardButton(
                 text="Неделя", callback_data="weather_week"
             ),
-             InlineKeyboardButton(
+        ],
+        [   
+            InlineKeyboardButton(
                 text="Сменить город", callback_data="change_city"
             ),
         ],
