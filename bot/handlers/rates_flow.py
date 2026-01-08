@@ -1,10 +1,18 @@
+import httpx
+from aiogram import F, Router
+from aiogram.fsm.context import FSMContext
+from aiogram.types import CallbackQuery, Message
+
+from bot.keyboards.main import currency_keyboard
+from bot.services.rates_client import RatesClient
+from bot.states.rates import RateFlow
+
 router = Router()
 
 
 # Старт сценария по кнопке "💱 Курс валют"
 @router.message(lambda m: m.text == "💱 Курс валют")
 async def rate_start(message: Message, state: FSMContext) -> None:
-
     await state.clear()
     await state.set_state(RateFlow.choosing_base)
     await message.answer(
@@ -68,7 +76,24 @@ async def choose_target(callback: CallbackQuery, state: FSMContext) -> None:
         return
 
     target = code
-@@ -97,79 +84,60 @@ async def choose_target(callback: CallbackQuery, state: FSMContext) -> None:
+
+    async with httpx.AsyncClient() as http:
+        client = RatesClient(http)
+        try:
+            result = await client.get_rate(base, target)
+        except ValueError:
+            await callback.message.edit_text(
+                f"❌ Валютная пара {base} → {target} не поддерживается."
+            )
+            await state.clear()
+            await callback.answer()
+            return
+        except httpx.HTTPError:
+            await callback.message.edit_text(
+                "⚠️ Сервис курсов валют временно недоступен."
+            )
+            await state.clear()
+            await callback.answer()
             return
 
     await callback.message.edit_text(
@@ -80,7 +105,7 @@ async def choose_target(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 # Ручной ввод исходной валюты
-@router.message(RateFlow.choosing_base, F.text)
+@router.message(RateFlow.choosing_base)
 async def manual_base(message: Message, state: FSMContext) -> None:
     data = await state.get_data()
     if data.get("waiting_for") != "base":
@@ -104,7 +129,7 @@ async def manual_base(message: Message, state: FSMContext) -> None:
 
 
 # Ручной ввод конечной валюты
-@router.message(RateFlow.choosing_target, F.text)
+@router.message(RateFlow.choosing_target)
 async def manual_target(message: Message, state: FSMContext) -> None:
     data = await state.get_data()
     if data.get("waiting_for") != "target":
