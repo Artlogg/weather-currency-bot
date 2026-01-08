@@ -12,6 +12,7 @@ from bot.states.weather import WeatherStates
 router = Router()
 
 
+
 WEEKDAYS = [
     "Понедельник",
     "Вторник",
@@ -132,7 +133,7 @@ async def change_city(callback: CallbackQuery, state: FSMContext):
     )
 
     await callback.answer()
-    
+
 @router.callback_query(F.data == "weather_today")
 async def weather_today(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
@@ -186,4 +187,3 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
     else:
         await callback.message.answer("Прогноз на этот день недоступен.")
 
-    await callback.answer()
