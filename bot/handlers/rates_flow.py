@@ -105,7 +105,7 @@ async def choose_target(callback: CallbackQuery, state: FSMContext) -> None:
 
 
 # Ручной ввод исходной валюты
-@router.message(RateFlow.choosing_base)
+@router.message(RateFlow.choosing_base, F.text)
 async def manual_base(message: Message, state: FSMContext) -> None:
     data = await state.get_data()
     if data.get("waiting_for") != "base":
@@ -129,7 +129,7 @@ async def manual_base(message: Message, state: FSMContext) -> None:
 
 
 # Ручной ввод конечной валюты
-@router.message(RateFlow.choosing_target)
+@router.message(RateFlow.choosing_target, F.text)
 async def manual_target(message: Message, state: FSMContext) -> None:
     data = await state.get_data()
     if data.get("waiting_for") != "target":
