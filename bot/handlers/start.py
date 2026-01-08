@@ -62,3 +62,13 @@ async def handle_callbacks(
         )
 
     await callback.answer()
+@router.message(F.text == "ℹ️ Помощь")
+async def help_button(message: Message) -> None:
+    await message.answer(
+        "Привет! Я бот «Погода / Курс валют».\n\n"
+        "Команды:\n"
+        "/weather <город> — погода по городу\n"
+        "/rate <BASE> <TARGET> — курс валют\n\n"
+        "Пример: /weather Riga"
+    )
+
