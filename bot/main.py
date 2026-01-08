@@ -20,8 +20,8 @@ async def main() -> None:
     
     dp.include_router(weather_router)
     dp.include_router(rates_router)
-    dp.include_router(start_router)
     dp.include_router(rates_flow_router)
+    dp.include_router(start_router)
 
 
     logging.info("Bot started")
