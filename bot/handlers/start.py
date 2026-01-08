@@ -40,8 +40,7 @@ async def handle_main_buttons(message: Message):
     elif text == "⚙️ Общее":
         await message.answer("Настройки:", reply_markup=general_menu)
     else:
-        return
-        
+        return     
 @router.message(lambda m: m.text == "🌤 Погода")
 async def weather_start(message: Message, state: FSMContext):
     await state.clear()
