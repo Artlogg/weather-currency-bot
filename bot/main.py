@@ -8,6 +8,8 @@ from bot.config import settings
 from bot.handlers.rates import router as rates_router
 from bot.handlers.start import router as start_router
 from bot.handlers.weather import router as weather_router
+from bot.handlers.rates_flow import router as rates_flow_router
+
 
 
 async def main() -> None:
@@ -20,6 +22,8 @@ async def main() -> None:
     dp.include_router(weather_router)
     dp.include_router(rates_router)
     dp.include_router(start_router)
+    dp.include_router(rates_flow_router)
+
 
     logging.info("Bot started")
 
