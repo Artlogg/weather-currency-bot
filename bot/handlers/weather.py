@@ -51,7 +51,6 @@ async def process_city(message: Message, state: FSMContext):
         city=city,
         forecast=forecast,
     )
-    await state.clear()
 
     await message.answer(
         f"📍 Город сохранён: {city}\n"
