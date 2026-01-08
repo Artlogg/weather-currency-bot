@@ -52,12 +52,6 @@ WEATHER_MAP = {
     99: "⛈ Гроза с дождем",
 }
 
-@router.message(F.text == "🌤 Погода")
-async def weather_button(message: Message, state: FSMContext) -> None:
-    await state.clear()
-    await state.set_state(WeatherStates.waiting_for_city)
-    await message.answer("Введите город (например: Москва)")
-
 @router.message(WeatherStates.waiting_for_city)
 async def process_city(message: Message, state: FSMContext):
     city = message.text.strip()
