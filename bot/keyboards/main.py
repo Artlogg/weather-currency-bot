@@ -149,8 +149,10 @@ def currency_keyboard(exclude: str | None = None) -> InlineKeyboardMarkup:
     if row:
         rows.append(row)
 
-    rows.append([InlineKeyboardButton(text="✍️ Ввести вручную", callback_data="cur:manual")])
-    rows.append([InlineKeyboardButton(text="❌ Отмена", callback_data="cur:cancel")])
+    rows.append([InlineKeyboardButton(
+        text="✍️ Ввести вручную", callback_data="cur:manual")])
+    rows.append([InlineKeyboardButton(
+        text="❌ Отмена", callback_data="cur:cancel")])
 
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
