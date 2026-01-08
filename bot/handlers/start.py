@@ -66,7 +66,7 @@ async def handle_callbacks(
 
     await callback.answer()
 @router.message(F.text == "ℹ️ Помощь")
-async def help_button(message: Message) -> None:
+async def help_button(message: Message, state: FSMContext) -> None:
     await state.clear()
     await message.answer(
 "Привет! 👋\n"  
