@@ -12,7 +12,7 @@ class DailyWeatherResult:
     temperature_min: float
     temperature_max: float
     wind_speed_max: float
-    weather_code: int
+    weather_codes: int
 
 
 class WeatherClient:
