@@ -87,7 +87,7 @@ async def process_city(message: Message, state: FSMContext):
 
 async def format_weather_day(day) -> str:
     weekday = WEEKDAYS[datetime.fromisoformat(day.date).weekday()]
-    weather_text = WEATHER_MAP.get(day.weathercode, "❓ Неизвестно")
+    weather_text = WEATHER_MAP.get(day.weather_code, "❓ Неизвестно")
     return (
         f"📍 {day.city}\n"
         f"📅 {weekday}, {day.date}\n"
