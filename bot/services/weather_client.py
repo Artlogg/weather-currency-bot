@@ -8,10 +8,11 @@ import httpx
 @dataclass(frozen=True)
 class DailyWeatherResult:
     city: str
-    date: str  # YYYY-MM-DD
+    date: str
     temperature_min: float
     temperature_max: float
     wind_speed_max: float
+    weather_code: int
 
 
 class WeatherClient:
