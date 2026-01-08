@@ -6,7 +6,6 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
 from bot.keyboards.main import weather_menu
-
 from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
 
