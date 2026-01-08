@@ -37,7 +37,6 @@ async def weather_start(message: Message, state: FSMContext):
     await message.answer(
         "Введите город (например: Москва):",
         reply_markup=last_city_menu,
-        await state.clear()
     )
 
 
