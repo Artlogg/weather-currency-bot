@@ -46,7 +46,7 @@ async def handle_main_buttons(message: Message):
 async def weather_start(message: Message, state: FSMContext):
     await state.set_state(WeatherStates.waiting_for_city)
     await message.answer(
-        "Введите город (например: Riga):",
+        "Введите город (например: Москва):",
         reply_markup=last_city_menu,
     )
 
