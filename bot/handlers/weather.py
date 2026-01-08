@@ -91,7 +91,7 @@ async def format_weather_day(day) -> str:
     return (
         f"📍 {day.city}\n"
         f"📅 {weekday}, {day.date}\n"
-        f"🌡 {day.temperature_c_min:.1f}°C — {day.temperature_c_max:.1f}°C\n"
+        f"🌡 {day.temperature_min:.1f}°C — {day.temperature_max:.1f}°C\n"
         f"💨 Ветер: {day.wind_speed:.1f} м/с\n"
         f"{weather_text}"
     )
