@@ -6,10 +6,9 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from bot.config import settings
 from bot.handlers.rates import router as rates_router
+from bot.handlers.rates_flow import router as rates_flow_router
 from bot.handlers.start import router as start_router
 from bot.handlers.weather import router as weather_router
-from bot.handlers.rates_flow import router as rates_flow_router
-
 
 
 async def main() -> None:
