@@ -10,12 +10,6 @@ from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
 
 router = Router()
-@router.message(F.text == "🌤 Погода")
-async def weather_start(message: Message, state: FSMContext):
-    await state.clear()
-    await state.set_state(WeatherStates.waiting_for_city)
-    await message.answer("Введите город (например: Москва)")
-
 
 
 WEEKDAYS = [
