@@ -12,7 +12,7 @@ class DailyWeatherResult:
     temperature_min: float
     temperature_max: float
     wind_speed_max: float
-    weather_codes: int
+    weather_code: int
 
 
 class WeatherClient:
@@ -63,7 +63,7 @@ class WeatherClient:
                 date=daily["time"][i],
                 temperature_min=daily["temperature_2m_min"][i],
                 temperature_max=daily["temperature_2m_max"][i],
-                weather_codes=daily["weathercode"][i],
+                weather_code=daily["weathercode"][i],
                 wind_speed_max=daily["wind_speed_10m_max"][i],
             )
             for i in range(len(daily["time"]))
