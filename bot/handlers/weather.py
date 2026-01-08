@@ -31,6 +31,26 @@ DAY_MAP = {
     "Sunday": 6,
 }
 
+WEATHER_MAP = {
+    0: "☀️ Ясно",
+    1: "🌤 Частично облачно",
+    2: "⛅ Облачно",
+    3: "☁️ Пасмурно",
+    45: "🌫 Туман",
+    48: "🌫 Туман",
+    51: "🌦 Лёгкий дождь",
+    53: "🌧 Дождь",
+    55: "🌧 Дождь",
+    61: "🌧 Сильный дождь",
+    63: "🌧 Сильный дождь",
+    65: "🌧 Очень сильный дождь",
+    71: "❄️ Снег",
+    73: "❄️ Снег",
+    75: "❄️ Снег",
+    95: "⛈ Гроза",
+    96: "⛈ Гроза с дождем",
+    99: "⛈ Гроза с дождем",
+}
 
 @router.message(WeatherStates.waiting_for_city)
 async def process_city(message: Message, state: FSMContext):
@@ -56,6 +76,17 @@ async def process_city(message: Message, state: FSMContext):
         f"📍 Город сохранён: {city}\n"
         f"Выберите период прогноза 👇",
         reply_markup=weather_menu,
+    )
+
+async def format_weather_day(day) -> str:
+    weekday = WEEKDAYS[datetime.fromisoformat(day.date).weekday()]
+    weather_text = WEATHER_MAP.get(day.weathercode, "❓ Неизвестно")
+    return (
+        f"📍 {day.city}\n"
+        f"📅 {weekday}, {day.date}\n"
+        f"🌡 {day.temperature_c_min:.1f}°C — {day.temperature_c_max:.1f}°C\n"
+        f"💨 Ветер: {day.wind_speed:.1f} м/с\n"
+        f"{weather_text}"
     )
 
 @router.callback_query(F.data == "weather_last")
@@ -102,16 +133,9 @@ async def weather_today(callback: CallbackQuery, state: FSMContext):
         return
 
     today = forecast[0]
-    weekday = WEEKDAYS[
-        datetime.fromisoformat(today.date).weekday()
-    ]
+    text = await format_weather_day(today)
 
-    await callback.message.answer(
-        f"📍 {today.city}\n"
-        f"📅 {weekday} (сегодня)\n"
-        f"🌡 {today.temperature_min:.1f}°C — {today.temperature_max:.1f}°C\n"
-        f"💨 Ветер: {today.wind_speed_max:.1f} м/с"
-    )
+    await callback.message.answer(text)
     await callback.answer()
 
 @router.callback_query(F.data == "weather_tomorrow")
@@ -125,16 +149,9 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
         return
 
     tomorrow = forecast[1]
-    weekday = WEEKDAYS[
-        datetime.fromisoformat(tomorrow.date).weekday()
-    ]
+    text = await format_weather_day(tomorrow)
 
-    await callback.message.answer(
-        f"📍 {tomorrow.city}\n"
-        f"📅 {weekday} (завтра)\n"
-        f"🌡 {tomorrow.temperature_min:.1f}°C — {tomorrow.temperature_max:.1f}°C\n"
-        f"💨 Ветер: {tomorrow.wind_speed_max:.1f} м/с"
-    )
+    await callback.message.answer(text)
     await callback.answer()
 
 @router.callback_query(F.data.in_(DAY_MAP))
@@ -151,13 +168,8 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
 
     for day in forecast:
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
-            weekday = WEEKDAYS[target_weekday]
-            await callback.message.answer(
-                f"📍 {day.city}\n"
-                f"📅 {weekday}, {day.date}\n"
-                f"🌡 {day.temperature_min:.1f}°C — {day.temperature_max:.1f}°C\n"
-                f"💨 Ветер: {day.wind_speed_max:.1f} м/с"
-            )
+            text = await format_weather_day(day)
+            await callback.message.answer(text)
             break
     else:
         await callback.message.answer("Прогноз на этот день недоступен.")
