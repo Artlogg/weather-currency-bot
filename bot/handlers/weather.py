@@ -58,6 +58,27 @@ async def process_city(message: Message, state: FSMContext):
         reply_markup=weather_menu,
     )
 
+@router.callback_query(F.data == "weather_last")
+async def use_last_city(callback: CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    city = data.get("city")
+
+    if not city:
+        await callback.message.answer(
+            "Вы ещё не вводили город 🙁"
+        )
+        await callback.answer()
+        return
+
+    await state.set_state(WeatherStates.waiting_for_city)
+
+    fake_message = callback.message
+    fake_message.text = city
+
+    await process_city(fake_message, state)
+
+    await callback.answer()
+
 @router.callback_query(F.data == "change_city")
 async def change_city(callback: CallbackQuery, state: FSMContext):
     await state.clear()
