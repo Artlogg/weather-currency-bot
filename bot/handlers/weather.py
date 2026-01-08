@@ -46,21 +46,63 @@ async def process_city(message: Message, state: FSMContext):
             await message.answer("Сервис погоды временно недоступен.")
             return
 
-    await state.update_data(city=city, forecast=forecast)
+    await state.update_data(
+        city=city,
+        forecast=forecast,
+    )
     await state.clear()
+
+    await message.answer(
+        f"📍 Город сохранён: {city}\n"
+        f"Выберите период прогноза 👇",
+        reply_markup=weather_menu,
+    )
+
+@router.callback_query(F.data == "weather_today")
+async def weather_today(callback: CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    forecast = data.get("forecast")
+
+    if not forecast:
+        await callback.message.answer("Сначала введи город.")
+        await callback.answer()
+        return
 
     today = forecast[0]
     weekday = WEEKDAYS[
         datetime.fromisoformat(today.date).weekday()
     ]
 
-    await message.answer(
+    await callback.message.answer(
         f"📍 {today.city}\n"
         f"📅 {weekday} (сегодня)\n"
         f"🌡 {today.temperature_min:.1f}°C — {today.temperature_max:.1f}°C\n"
         f"💨 Ветер: {today.wind_speed_max:.1f} м/с"
     )
+    await callback.answer()
 
+@router.callback_query(F.data == "weather_tomorrow")
+async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    forecast = data.get("forecast")
+
+    if not forecast or len(forecast) < 2:
+        await callback.message.answer("Прогноз на завтра недоступен.")
+        await callback.answer()
+        return
+
+    tomorrow = forecast[1]
+    weekday = WEEKDAYS[
+        datetime.fromisoformat(tomorrow.date).weekday()
+    ]
+
+    await callback.message.answer(
+        f"📍 {tomorrow.city}\n"
+        f"📅 {weekday} (завтра)\n"
+        f"🌡 {tomorrow.temperature_min:.1f}°C — {tomorrow.temperature_max:.1f}°C\n"
+        f"💨 Ветер: {tomorrow.wind_speed_max:.1f} м/с"
+    )
+    await callback.answer()
 
 @router.callback_query(F.data.in_(DAY_MAP))
 async def week_day(callback: CallbackQuery, state: FSMContext):
