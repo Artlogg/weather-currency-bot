@@ -240,10 +240,12 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
                     text, image_url = format_weather_day(forecast[day])
                     await callback.message.delete()
-                    await callback.message.answer_photo(photo=image_url, 
-                                     caption=text, 
-                                     reply_markup=back_keyboard)
-            break
+                    await callback.message.answer_photo(
+                        photo=image_url, 
+                        caption=text, 
+                        reply_markup=back_keyboard
+                    )
+                    break
     else:
         await callback.message.answer("Прогноз на этот день недоступен.")
 
