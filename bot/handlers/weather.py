@@ -5,12 +5,9 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-<<<<<<< HEAD
-from bot.keyboards.main import back_keyboard, cancel_keyboard, weather_menu, week_menu
-=======
-from bot.keyboards.main import (back_keyboard, cancel_keyboard, 
-last_city_menu, weather_menu, week_menu)
->>>>>>> a03cb77d852ad9e5a426b52e6638cc5f28f532f5
+from bot.keyboards.main import (back_keyboard, last_city_menu,
+weather_menu, week_menu)
+
 from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
 
