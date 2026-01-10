@@ -114,7 +114,7 @@ async def cancel(callback: CallbackQuery, state: FSMContext):
 async def back_to_periods(callback: CallbackQuery):
     await callback.message.edit_text(
         "Выберите период прогноза 👇",
-        reply_markup=weather_menu_with_cancel
+        reply_markup=weather_menu
     )
     await callback.answer()
     
