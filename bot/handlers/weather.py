@@ -86,7 +86,7 @@ def choose_weather_image(temperature: float, weather_code: int) -> str:
             return f"{BASE_IMG_URL}/sunny.jpg"
         else:
             return f"{BASE_IMG_URL}/sunny.jpg"
-            
+
 @router.message(WeatherStates.waiting_for_city)
 async def process_city(message: Message, state: FSMContext):
     city = message.text.strip()
@@ -145,7 +145,7 @@ async def back_to_periods(callback: CallbackQuery):
         reply_markup=weather_menu
     )
     await callback.answer()
-    
+
 @router.callback_query(F.data == "weather_last")
 async def use_last_city(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
@@ -191,8 +191,7 @@ async def weather_today(callback: CallbackQuery, state: FSMContext):
         return
 
     text, image_url = await format_weather_day(forecast[0])
-    await callback.message.delete()
-    await callback.bot.send_photo(photo=image_url, 
+    await callback.message.answer_photo(photo=image_url, 
                                      caption=text, 
                                      reply_markup=back_keyboard)
     await callback.answer()
@@ -208,8 +207,7 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
         return
 
     text, image_url = await format_weather_day(forecast[1])
-    await callback.message.delete()
-    await callback.bot.send_photo(photo=image_url, 
+    await callback.message.answer_photo(photo=image_url, 
                                      caption=text, 
                                      reply_markup=back_keyboard)
     await callback.answer()
@@ -237,9 +235,8 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
 
     for day in forecast:
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
-                    text, image_url = await format_weather_day(day)
-                    await callback.message.delete()
-                    await callback.bot.send_photo(
+                    text, image_url = await format_weather_day(forecast[day])
+                    await callback.message.answer_photo(
                         photo=image_url, 
                         caption=text, 
                         reply_markup=back_keyboard
@@ -247,4 +244,3 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
                     break
     else:
         await callback.message.answer("Прогноз на этот день недоступен.")
-
