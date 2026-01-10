@@ -217,7 +217,7 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
 
     for day in forecast:
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
-                    text, image_url = await format_weather_day(forecast[day])
+                    text, image_url = await format_weather_day(day)
                     await callback.message.delete()
                     await callback.message.answer_photo(
                         photo=image_url, 
