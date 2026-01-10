@@ -109,6 +109,14 @@ async def cancel(callback: CallbackQuery, state: FSMContext):
         "Действие отменено ✅\nВыберите, что хотите сделать дальше 👇",
     )
     await callback.answer()
+
+@router.callback_query(F.data == "back_to_periods")
+async def back_to_periods(callback: CallbackQuery):
+    await callback.message.edit_text(
+        "Выберите период прогноза 👇",
+        reply_markup=weather_menu_with_cancel
+    )
+    await callback.answer()
     
 @router.callback_query(F.data == "weather_last")
 async def use_last_city(callback: CallbackQuery, state: FSMContext):
