@@ -57,6 +57,9 @@ last_city_menu = InlineKeyboardMarkup(
                 text="⭐ Последний город", callback_data="weather_last"
             ),
         ],
+        [
+            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel"),
+        ],
     ]
 )
 
