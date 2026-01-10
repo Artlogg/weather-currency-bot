@@ -25,7 +25,8 @@ async def rate_start(message: Message, state: FSMContext) -> None:
 @router.callback_query(F.data == "cur:cancel")
 async def rate_cancel(callback: CallbackQuery, state: FSMContext) -> None:
     await state.clear()
-    await callback.message.edit_text("Операция отменена.")
+    await callback.message.edit_text("Действие отменено ✅\n"
+                            "Выберите, что хотите сделать дальше 👇")
     await callback.answer()
 
 
