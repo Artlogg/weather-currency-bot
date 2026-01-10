@@ -5,6 +5,12 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
 )
 
+cancel_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel")]
+    ]
+)
+
 main_menu = ReplyKeyboardMarkup(
     keyboard=[
         [
@@ -38,6 +44,9 @@ weather_menu = InlineKeyboardMarkup(
                 text="Сменить город", callback_data="change_city"
             ),
         ],
+        [
+            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel"),
+        ],
     ]
 )
 
@@ -54,42 +63,25 @@ last_city_menu = InlineKeyboardMarkup(
 week_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(
-                text="Пн", callback_data="Monday"
-            ),
+            InlineKeyboardButton(text="Пн", callback_data="Monday"),
+            InlineKeyboardButton(text="Вт", callback_data="Tuesday"),
+            InlineKeyboardButton(text="Ср", callback_data="Wednesday"),
         ],
         [
-            InlineKeyboardButton(
-                text="Вт", callback_data="Tuesday"
-            ),
+            InlineKeyboardButton(text="Чт", callback_data="Thursday"),
+            InlineKeyboardButton(text="Пт", callback_data="Friday"),
         ],
         [
-            InlineKeyboardButton(
-                text="Ср", callback_data="Wednesday"
-            ),
+            InlineKeyboardButton(text="Сб", callback_data="Saturday"),
+            InlineKeyboardButton(text="Вс", callback_data="Sunday"),
         ],
         [
-            InlineKeyboardButton(
-                text="Чт", callback_data="Thursday"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="Пт", callback_data="Friday"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="Сб", callback_data="Saturday"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="Вс", callback_data="Sunday"
-            ),
-        ],
+            InlineKeyboardButton(text="⬅ Назад", callback_data="back_to_periods"),
+            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel"),
+        ]
     ]
 )
+
 rates_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
