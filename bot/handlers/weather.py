@@ -146,7 +146,6 @@ async def weather_today(callback: CallbackQuery, state: FSMContext):
 
     today = forecast[0]
     text = await format_weather_day(today)
-    await state.clear()
     await callback.message.answer(text)
     await callback.answer()
 
@@ -162,7 +161,6 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
 
     tomorrow = forecast[1]
     text = await format_weather_day(tomorrow)
-    await state.clear()
     await callback.message.answer(text)
     await callback.answer()
 
@@ -182,7 +180,6 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
             text = await format_weather_day(day)
             await callback.message.answer(text)
-            await state.clear()
             break
     else:
         await callback.message.answer("Прогноз на этот день недоступен.")
