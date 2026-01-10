@@ -192,7 +192,7 @@ async def weather_today(callback: CallbackQuery, state: FSMContext):
 
     text, image_url = await format_weather_day(forecast[0])
     await callback.message.delete()
-    await callback.message.answer_photo(photo=image_url, 
+    await callback.bot.send_photo(photo=image_url, 
                                      caption=text, 
                                      reply_markup=back_keyboard)
     await callback.answer()
@@ -209,7 +209,7 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
 
     text, image_url = await format_weather_day(forecast[1])
     await callback.message.delete()
-    await callback.message.answer_photo(photo=image_url, 
+    await callback.bot.send_photo(photo=image_url, 
                                      caption=text, 
                                      reply_markup=back_keyboard)
     await callback.answer()
@@ -237,9 +237,9 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
 
     for day in forecast:
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
-                    text, image_url = await format_weather_day(forecast[day])
+                    text, image_url = await format_weather_day(day)
                     await callback.message.delete()
-                    await callback.message.answer_photo(
+                    await callback.bot.send_photo(
                         photo=image_url, 
                         caption=text, 
                         reply_markup=back_keyboard
