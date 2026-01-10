@@ -203,7 +203,7 @@ async def handle_callbacks(callback: CallbackQuery, state: FSMContext,):
 
     await callback.answer()
 
-@router.callback_query(F.data.in_(DAY_MAP))
+@router.callback_query(F.data.in_(DAY_MAP.keys()))
 async def week_day(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     forecast = data.get("forecast")
