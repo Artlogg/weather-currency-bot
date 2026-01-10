@@ -84,7 +84,7 @@ async def process_city(message: Message, state: FSMContext):
         forecast=forecast,
     )
 
-    await message.answer(
+    await message.edit_text(
         f"📍 Город сохранён: {city}\n"
         f"Выберите период прогноза 👇",
         reply_markup=weather_menu,
@@ -145,7 +145,7 @@ async def change_city(callback: CallbackQuery, state: FSMContext):
 
     await state.set_state(WeatherStates.waiting_for_city)
 
-    await callback.message.answer(
+    await callback.message.edit_text(
         "Введите город (например: Москва)",
         reply_markup=cancel_keyboard
     )
