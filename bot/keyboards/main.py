@@ -84,53 +84,7 @@ week_menu = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text="⬅ Назад", 
                                  callback_data="back_to_periods"),
-            InlineKeyboardButton(text="❌ Отмена", 
-                                 callback_data="cancel"),
         ]
-    ]
-)
-
-rates_menu = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(
-                text="USD / RUB", callback_data="rate_usd_rub"
-            ),
-            InlineKeyboardButton(
-                text="CNY / RUB", callback_data="rate_cny_rub"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="⭐ Любимая пара", callback_data="rate_favorite"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="🔄 Обновить курс", callback_data="rate_refresh"
-            ),
-        ],
-    ]
-)
-
-general_menu = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(
-                text="🔄 Обновить", callback_data="general_refresh"
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="❌ Убрать клавиатуру",
-                callback_data="general_hide",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="ℹ️ Помощь", callback_data="general_help"
-            ),
-        ],
     ]
 )
 
