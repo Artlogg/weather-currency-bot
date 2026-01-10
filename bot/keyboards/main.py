@@ -7,7 +7,8 @@ from aiogram.types import (
 
 cancel_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel")]
+        [InlineKeyboardButton(text="❌ Отмена", 
+                              callback_data="cancel")]
     ]
 )
 
@@ -45,7 +46,8 @@ weather_menu = InlineKeyboardMarkup(
             ),
         ],
         [
-            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel"),
+            InlineKeyboardButton(text="❌ Отмена", 
+                                 callback_data="cancel"),
         ],
     ]
 )
@@ -58,7 +60,8 @@ last_city_menu = InlineKeyboardMarkup(
             ),
         ],
         [
-            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel"),
+            InlineKeyboardButton(text="❌ Отмена", 
+                                 callback_data="cancel"),
         ],
     ]
 )
@@ -79,8 +82,10 @@ week_menu = InlineKeyboardMarkup(
             InlineKeyboardButton(text="Вс", callback_data="Sunday"),
         ],
         [
-            InlineKeyboardButton(text="⬅ Назад", callback_data="back_to_periods"),
-            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel"),
+            InlineKeyboardButton(text="⬅ Назад", 
+                                 callback_data="back_to_periods"),
+            InlineKeyboardButton(text="❌ Отмена", 
+                                 callback_data="cancel"),
         ]
     ]
 )
