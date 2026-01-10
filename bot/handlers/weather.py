@@ -84,7 +84,7 @@ async def process_city(message: Message, state: FSMContext):
         forecast=forecast,
     )
 
-    await message.edit_text(
+    await message.answer(
         f"📍 Город сохранён: {city}\n"
         f"Выберите период прогноза 👇",
         reply_markup=weather_menu,
