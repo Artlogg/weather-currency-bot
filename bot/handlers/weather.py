@@ -65,7 +65,7 @@ WEATHER_MAP = {
     99: "⛈ Гроза с сильным дождем",
 }
 
-BASE_IMG_URL = "https://raw.githubusercontent.com/USERNAME/weather-currency-bot/main/assets"
+BASE_IMG_URL = "https://raw.githubusercontent.com/Artlogg/weather-currency-bot/main/assets"
 
 def choose_weather_image(temperature: float, weather_code: int) -> str:
     if weather_code in (71, 73, 75, 77, 85, 86): 
