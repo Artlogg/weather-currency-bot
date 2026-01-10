@@ -65,26 +65,28 @@ WEATHER_MAP = {
     99: "⛈ Гроза с сильным дождем",
 }
 
+BASE_IMG_URL = "https://raw.githubusercontent.com/USERNAME/weather-currency-bot/main/assets"
+
 def choose_weather_image(temperature: float, weather_code: int) -> str:
     if weather_code in (71, 73, 75, 77, 85, 86): 
-        return "https://example.com/snow.png"
+        return f"{BASE_IMG_URL}/snow.jpg"
     elif weather_code in (51, 53, 55, 61, 63, 65, 80, 81, 82):
-        return "https://example.com/rain.png"
+        return f"{BASE_IMG_URL}/rain.jpg"
     elif weather_code in (95, 96, 99):
-        return "https://example.com/thunder.png"
+        return f"{BASE_IMG_URL}/rain.jpg"
     elif weather_code in (45, 48):
-        return "https://example.com/fog.png"
+        return f"{BASE_IMG_URL}/fog.jpg"
     elif weather_code in (1, 2, 3):
-        return "https://example.com/cloud.png"
+        return f"{BASE_IMG_URL}/cloud.jpg"
     else:
         if temperature <= -10:
-            return "https://example.com/snow.png"
+            return f"{BASE_IMG_URL}/snow.jpg"
         elif temperature < 5:
-            return "https://example.com/cool.png"
+            return f"{BASE_IMG_URL}/cloud.jpg"
         elif temperature < 20:
-            return "https://example.com/mild.png"
+            return f"{BASE_IMG_URL}/sunny.jpg"
         else:
-            return "https://example.com/sunny.png"
+            return f"{BASE_IMG_URL}/sunny.jpg"
             
 @router.message(WeatherStates.waiting_for_city)
 async def process_city(message: Message, state: FSMContext):
