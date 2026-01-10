@@ -12,6 +12,13 @@ cancel_keyboard = InlineKeyboardMarkup(
     ]
 )
 
+back_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[
+            [InlineKeyboardButton(text="⬅ Назад", 
+                                 callback_data="back_to_periods")]
+        ]
+)
+
 main_menu = ReplyKeyboardMarkup(
     keyboard=[
         [
