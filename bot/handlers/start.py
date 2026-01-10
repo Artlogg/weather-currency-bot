@@ -1,12 +1,11 @@
 from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import Message
 
 from bot.keyboards.main import (
     last_city_menu,
     main_menu,
-    week_menu,
 )
 from bot.states.weather import WeatherStates
 
