@@ -5,7 +5,8 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from bot.keyboards.main import back_keyboard, cancel_keyboard, weather_menu
+from bot.keyboards.main import back_keyboard, cancel_keyboard, weather_menu,
+                                week_menu
 from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
 
@@ -182,6 +183,18 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
     text = await format_weather_day(tomorrow)
     await callback.message.edit_text(text,
                                      reply_markup=back_keyboard)
+    await callback.answer()
+
+@router.callback_query(F.data == "weather_week")
+async def handle_callbacks(
+    callback: CallbackQuery,
+    state: FSMContext,):
+    data = callback.data
+    await callback.message.answer(
+            "Выберите день недели:",
+            reply_markup=week_menu
+        )
+
     await callback.answer()
 
 @router.callback_query(F.data.in_(DAY_MAP))
