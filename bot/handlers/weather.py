@@ -186,10 +186,7 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
 
 @router.callback_query(F.data == "weather_week")
-async def handle_callbacks(
-    callback: CallbackQuery,
-    state: FSMContext,):
-    data = callback.data
+async def handle_callbacks(callback: CallbackQuery, state: FSMContext,):
     await callback.message.answer(
             "Выберите день недели:",
             reply_markup=week_menu
