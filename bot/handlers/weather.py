@@ -141,7 +141,8 @@ async def cancel(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == "back_to_periods")
 async def back_to_periods(callback: CallbackQuery):
-    await callback.message.edit_text(
+    await callback.message.delete()
+    await callback.message.answer(
         "Выберите период прогноза 👇",
         reply_markup=weather_menu
     )
