@@ -65,6 +65,27 @@ WEATHER_MAP = {
     99: "⛈ Гроза с сильным дождем",
 }
 
+def choose_weather_image(temperature: float, weather_code: int) -> str:
+    if weather_code in (71, 73, 75, 77, 85, 86): 
+        return "https://example.com/snow.png"
+    elif weather_code in (51, 53, 55, 61, 63, 65, 80, 81, 82):
+        return "https://example.com/rain.png"
+    elif weather_code in (95, 96, 99):
+        return "https://example.com/thunder.png"
+    elif weather_code in (45, 48):
+        return "https://example.com/fog.png"
+    elif weather_code in (1, 2, 3):
+        return "https://example.com/cloud.png"
+    else:
+        if temperature <= -10:
+            return "https://example.com/snow.png"
+        elif temperature < 5:
+            return "https://example.com/cool.png"
+        elif temperature < 20:
+            return "https://example.com/mild.png"
+        else:
+            return "https://example.com/sunny.png"
+            
 @router.message(WeatherStates.waiting_for_city)
 async def process_city(message: Message, state: FSMContext):
     city = message.text.strip()
@@ -94,13 +115,18 @@ async def process_city(message: Message, state: FSMContext):
 async def format_weather_day(day) -> str:
     weekday = WEEKDAYS[datetime.fromisoformat(day.date).weekday()]
     weather_text = WEATHER_MAP.get(day.weather_code, "❓ Неизвестно")
-    return (
+    image_url = choose_weather_image(
+        temperature=day.temperature_max,
+        weather_code=day.weather_code,
+    )
+    text = (
         f"📍 {day.city}\n"
         f"📅 {weekday}, {day.date}\n"
         f"🌡 {day.temperature_min:.1f}°C — {day.temperature_max:.1f}°C\n"
         f"💨 Ветер: {day.wind_speed_max:.1f} км/с\n"
         f"{weather_text}"
     )
+    return text, image_url
 
 @router.callback_query(F.data == "cancel")
 async def cancel(callback: CallbackQuery, state: FSMContext):
@@ -163,9 +189,10 @@ async def weather_today(callback: CallbackQuery, state: FSMContext):
         await callback.answer()
         return
 
-    today = forecast[0]
-    text = await format_weather_day(today)
-    await callback.message.edit_text(text, 
+    text, image_url = format_weather_day(forecast[0])
+    await callback.message.delete()
+    await callback.message.answer_photo(photo=image_url, 
+                                     caption=text, 
                                      reply_markup=back_keyboard)
     await callback.answer()
 
@@ -179,9 +206,10 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
         await callback.answer()
         return
 
-    tomorrow = forecast[1]
-    text = await format_weather_day(tomorrow)
-    await callback.message.edit_text(text,
+    text, image_url = format_weather_day(forecast[1])
+    await callback.message.delete()
+    await callback.message.answer_photo(photo=image_url, 
+                                     caption=text, 
                                      reply_markup=back_keyboard)
     await callback.answer()
 
@@ -208,9 +236,11 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
 
     for day in forecast:
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
-            text = await format_weather_day(day)
-            await callback.message.edit_text(text, 
-                                             reply_markup=back_keyboard)
+                    text, image_url = format_weather_day(forecast[day])
+                    await callback.message.delete()
+                    await callback.message.answer_photo(photo=image_url, 
+                                     caption=text, 
+                                     reply_markup=back_keyboard)
             break
     else:
         await callback.message.answer("Прогноз на этот день недоступен.")
