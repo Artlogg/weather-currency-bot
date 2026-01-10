@@ -39,32 +39,6 @@ async def weather_start(message: Message, state: FSMContext):
         reply_markup=last_city_menu,
     )
 
-
-@router.callback_query(F.data.in_({
-    "weather_today",
-    "weather_tomorrow",
-    "weather_week",
-}))
-async def handle_callbacks(
-    callback: CallbackQuery,
-    state: FSMContext,
-):
-    data = callback.data
-
-    if data == "weather_week":
-        await callback.message.answer(
-            "Выберите день недели:",
-            reply_markup=week_menu
-        )
-    elif data in ("weather_today", "weather_tomorrow"):
-        await state.set_state(WeatherStates.waiting_for_city)
-        await state.update_data(period=data)
-
-        await callback.message.answer(
-            "Введите город (например: Москва)", reply_markup=last_city_menu
-        )
-
-    await callback.answer()
 @router.message(F.text == "ℹ️ Помощь")
 async def help_button(message: Message, state: FSMContext) -> None:
     await state.clear()
