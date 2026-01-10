@@ -76,7 +76,7 @@ def choose_weather_image(temperature: float, weather_code: int) -> str:
     elif weather_code in (45, 48):
         return f"{BASE_IMG_URL}/fog.jpg"
     elif weather_code in (1, 2, 3):
-        return f"{BASE_IMG_URL}/cloud.jpg"
+        return f"{BASE_IMG_URL}/cloudy.jpg"
     else:
         if temperature <= -10:
             return f"{BASE_IMG_URL}/snow.jpg"
