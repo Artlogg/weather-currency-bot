@@ -5,7 +5,7 @@ from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from bot.keyboards.main import (back_keyboard, last_city_menu,
+from bot.keyboards.main import (back_keyboard, cancel_keyboard,
 weather_menu, week_menu)
 
 from bot.states.weather import WeatherStates
@@ -149,27 +149,6 @@ async def back_to_periods(callback: CallbackQuery):
     )
     await callback.answer()
 
-@router.callback_query(F.data == "weather_last")
-async def use_last_city(callback: CallbackQuery, state: FSMContext):
-    data = await state.get_data()
-    city = data.get("city")
-
-    if not city:
-        await callback.message.answer(
-            "Вы ещё не вводили город 🙁"
-        )
-        await callback.answer()
-        return
-
-    await state.set_state(WeatherStates.waiting_for_city)
-
-    fake_message = callback.message
-    fake_message.text = city
-
-    await process_city(fake_message, state)
-
-    await callback.answer()
-
 @router.callback_query(F.data == "change_city")
 async def change_city(callback: CallbackQuery, state: FSMContext):
     await state.clear()
@@ -178,7 +157,7 @@ async def change_city(callback: CallbackQuery, state: FSMContext):
 
     await callback.message.edit_text(
         "Введите город (например: Москва)",
-        reply_markup=last_city_menu
+        reply_markup=cancel_keyboard
     )
 
     await callback.answer()
@@ -219,7 +198,7 @@ async def weather_tomorrow(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == "weather_week")
 async def handle_callbacks(callback: CallbackQuery, state: FSMContext,):
-    await callback.message.answer(
+    await callback.message.edit_text(
             "Выберите день недели:",
             reply_markup=week_menu
         )
@@ -240,7 +219,7 @@ async def week_day(callback: CallbackQuery, state: FSMContext):
 
     for day in forecast:
         if datetime.fromisoformat(day.date).weekday() == target_weekday:
-                    text, image_url = await format_weather_day(day)
+                    text, image_url = await format_weather_day(forecast[day])
                     await callback.message.delete()
                     await callback.message.answer_photo(
                         photo=image_url, 

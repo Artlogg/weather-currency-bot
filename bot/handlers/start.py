@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from bot.keyboards.main import (
-    last_city_menu,
+    cancel_keyboard,
     main_menu,
 )
 from bot.states.weather import WeatherStates
@@ -35,7 +35,7 @@ async def weather_start(message: Message, state: FSMContext):
     await state.set_state(WeatherStates.waiting_for_city)
     await message.answer(
         "Введите город (например: Москва):",
-        reply_markup=last_city_menu,
+        reply_markup=cancel_keyboard,
     )
 
 @router.message(F.text == "ℹ️ Помощь")
