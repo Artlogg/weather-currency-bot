@@ -101,6 +101,15 @@ async def format_weather_day(day) -> str:
         f"{weather_text}"
     )
 
+@router.callback_query(F.data == "cancel")
+async def cancel(callback: CallbackQuery, state: FSMContext):
+    await state.clear()
+
+    await callback.message.edit_text(
+        "Действие отменено ✅\nВыберите, что хотите сделать дальше 👇",
+    )
+    await callback.answer()
+    
 @router.callback_query(F.data == "weather_last")
 async def use_last_city(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
@@ -129,7 +138,8 @@ async def change_city(callback: CallbackQuery, state: FSMContext):
     await state.set_state(WeatherStates.waiting_for_city)
 
     await callback.message.answer(
-        "Введите город (например: Москва)"
+        "Введите город (например: Москва)",
+        reply_markup=cancel_keyboard
     )
 
     await callback.answer()
