@@ -8,8 +8,8 @@ from aiogram.types import CallbackQuery, Message
 from bot.keyboards.main import (back_keyboard, last_city_menu,
 weather_menu, week_menu)
 
-from bot.services.weather_client import WeatherClient
 from bot.states.weather import WeatherStates
+from bot.services.weather_client import WeatherClient
 
 router = Router()
 
