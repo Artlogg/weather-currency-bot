@@ -33,17 +33,4 @@
 
 ---
 
-## 📂 Структура проекта
 
-weather-currency-bot/
-├── bot/
-│ ├── handlers/ # Обработчики команд и кнопок
-│ ├── services/ # Клиенты для работы с API
-│ ├── keyboards/ # Клавиатуры (Reply / Inline)
-│ ├── states/ # FSM состояния
-│ ├── config.py # Настройки проекта
-│ └── main.py # Точка входа
-├── tests/ # Тесты
-├── .env.example # Пример переменных окружения
-├── pyproject.toml # Зависимости и настройки
-└── README.md
